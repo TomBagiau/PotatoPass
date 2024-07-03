@@ -5,7 +5,7 @@ import { Slot, Stack } from 'expo-router'
 const RootLayout = () => {
   return (
     <Stack>
-        <Stack.Screen name="index" options={{ headerShown: false }} /> {/* Affiche la page index */}
+        <Stack.Screen name="index" options={{ headerShown: false }}></Stack.Screen>
     </Stack>
   )
 }

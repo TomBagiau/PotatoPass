@@ -17,3 +17,4 @@ An in-depth paragraph about your project and overview of use.
 - expo-linking 
 - expo-constants 
 - expo-status-bar
+- NativeWind
