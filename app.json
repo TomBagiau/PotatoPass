@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "PotatoPass",
+    "scheme": "PotatoPass",
     "slug": "PotatoPass",
     "version": "1.0.0",
     "orientation": "portrait",
