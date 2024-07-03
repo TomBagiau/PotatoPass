@@ -21,6 +21,17 @@ const RootLayout = () => {
   return (
     <Stack>
         <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen 
+        name="rules" 
+        options={{ 
+          headerShown: true, 
+          headerTitle: () => null, 
+          headerTitle: 'Règles du jeu',
+          headerBackTitleVisible: false 
+        }} 
+      />
+        <Stack.Screen name="players" options={{ headerShown: false }} />
+        <Stack.Screen name="play" options={{ headerShown: false }} />
     </Stack>
   )
 }
