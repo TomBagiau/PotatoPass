@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, ScrollView, TouchableOpacity, Image, Animated, Easing } from 'react-native'
+import { View, Text, TextInput, ScrollView, TouchableOpacity, Image, Animated, Easing } from 'react-native'
 import { router } from 'expo-router' 
 import { SafeAreaView } from 'react-native-safe-area-context'
 import CustomButton from '../components/CustomButton'
@@ -8,9 +8,19 @@ import { icons } from '../constants'
 
 const players = () => {
   const [isAddingPlayer, setIsAddingPlayer] = useState(false);
+  const [newPlayerName, setNewPlayerName] = useState('');
+  const [playersList, setPlayersList] = useState([]);
 
   const toggleAddPlayer = () => {
     setIsAddingPlayer(!isAddingPlayer);
+  };
+
+  const handleAddPlayer = () => {
+    if (newPlayerName.trim() !== '') {
+      setPlayersList([...playersList, newPlayerName.trim()]);
+      setNewPlayerName('');
+      setIsAddingPlayer(false);
+    }
   };
 
   return (
@@ -33,11 +43,13 @@ const players = () => {
               <>
                 <View className="w-full bg-secondary mt-6">
                   <Text className="text-2xl text-primary font-capriola"> Nom : </Text>
+                  <TextInput
+                    className="w-[70%] bg-primary p-2 rounded-md text-lg"
+                    value={newPlayerName}
+                    onChangeText={setNewPlayerName}
+                  />
 
-                  {/* Ajout ici d'un champ permettant d'écrire le nom du joueur. */}
-
-                  {/* Le bouton Ajouter permet d'enregistrer le nom en local et l'afficher à l'écran */}
-                  <TouchableOpacity>
+                  <TouchableOpacity className="mt-4" onPress={handleAddPlayer}>
                     <Text className="text-xl font-capriola text-primary mt-5">Ajouter</Text>
                   </TouchableOpacity>
                 </View>
@@ -45,6 +57,14 @@ const players = () => {
             ) : (
               //AddingPlayer = False
               <>
+                {playersList.length > 0 && (
+                  <View className="w-full mt-8">
+                    {playersList.map((player, index) => (
+                      <Text key={index} className="text-lg mt-2">{player}</Text>
+                    ))}
+                  </View>
+                )}
+
                 <CustomButton
                 title="Jouer" 
                 handlePress={() => router.push('/play')}
