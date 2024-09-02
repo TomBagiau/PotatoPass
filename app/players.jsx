@@ -29,6 +29,11 @@ const Players = () => {
     }
   };
 
+  const handleRemovePlayer = (id) => {
+    const updatedPlayersList = playersList.filter(player => player.id !== id);
+    setPlayersList(updatedPlayersList);
+  };
+
   return (
     <SafeAreaView className="bg-primary h-full">
       <ScrollView>
@@ -67,9 +72,15 @@ const Players = () => {
               {playersList.length > 0 && (
                 <View className="w-full mt-8">
                   {playersList.map((player) => (
-                    <Text key={player.id} className="text-lg mt-2">
-                      {player.name}
-                    </Text>
+                    <View key={player.id} className="flex flex-row items-center justify-between bg-secondary p-3 rounded-lg mb-2 shadow-md">
+                      <Text className="text-xl text-primary">{player.name}</Text>
+                      <TouchableOpacity onPress={() => handleRemovePlayer(player.id)}>
+                        <Image
+                          source={icons.xIcon}
+                          className="w-6 h-6"
+                        />
+                      </TouchableOpacity>
+                    </View>
                   ))}
                 </View>
               )}
