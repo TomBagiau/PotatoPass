@@ -46,16 +46,18 @@ const Players = () => {
           {isAddingPlayer ? (
             // AddingPlayer = True
             <>
-              <View className="w-full bg-secondary mt-6">
-                <Text className="text-2xl text-primary font-capriola"> Nom : </Text>
+              <View className="w-full bg-secondary p-4 mt-6 rounded-lg shadow-lg">
+                <Text className="text-2xl text-primary font-capriola mb-3"> Nom : </Text>
                 <TextInput
-                  className="w-[70%] bg-primary p-2 rounded-md text-lg"
+                  className="w-full bg-primary p-3 rounded-lg text-lg text-black shadow-inner"
                   value={newPlayerName}
                   onChangeText={setNewPlayerName}
+                  placeholder="Entrez le nom du joueur"
+                  placeholderTextColor="rgba(0, 0, 0, 0.6)"
                 />
 
-                <TouchableOpacity className="mt-4" onPress={handleAddPlayer}>
-                  <Text className="text-xl font-capriola text-primary mt-5">Ajouter</Text>
+                <TouchableOpacity className="mt-6 bg-primary p-3 rounded-lg shadow-md" onPress={handleAddPlayer}>
+                  <Text className="text-xl font-capriola text-secondary text-center">Ajouter</Text>
                 </TouchableOpacity>
               </View>
             </>
