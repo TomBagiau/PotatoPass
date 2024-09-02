@@ -10,11 +10,6 @@ const Players = () => {
   const [newPlayerName, setNewPlayerName] = useState('');
   const [playersList, setPlayersList] = useState([]);
 
-  // useEffect(() => {
-  //   // Log de la liste des joueurs chaque fois qu'elle change
-  //   console.log('Liste des joueurs:', playersList);
-  // }, [playersList]);
-
   const toggleAddPlayer = () => {
     setIsAddingPlayer(!isAddingPlayer);
   };
@@ -22,10 +17,13 @@ const Players = () => {
   const handleAddPlayer = () => {
     if (newPlayerName.trim() !== '') {
       const newPlayer = {
-        id: playersList.length + 1, // Génère un ID unique basé sur la longueur du tableau
-        name: newPlayerName.trim()
+        id: playersList.length + 1, 
+        name: newPlayerName.trim(),
       };
-      setPlayersList([...playersList, newPlayer]);
+      
+      const updatedPlayersList = [...playersList, newPlayer];
+      setPlayersList(updatedPlayersList); // Mettre à jour l'état avec la nouvelle liste
+  
       setNewPlayerName('');
       setIsAddingPlayer(false);
     }
@@ -74,11 +72,14 @@ const Players = () => {
                 </View>
               )}
 
+
               <CustomButton
                 title="Jouer"
-                handlePress={() => router.push({ pathname: '/play', params: { players: playersList } })}
                 containerStyles="w-full mt-7"
                 textStyles="text-3xl"
+                handlePress={() => {
+                  router.push({ pathname: '/play', params: { players: JSON.stringify(playersList) } });
+                }}
               />
             </>
           )}

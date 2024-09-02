@@ -1,25 +1,51 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, Image } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import React, { useState, useEffect } from 'react';
+import { SafeAreaView, View, Text, TouchableOpacity, Image } from 'react-native';
+import { useLocalSearchParams } from 'expo-router';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import { icons } from '../constants';
 
 const Play = () => {
-  
+  const { players } = useLocalSearchParams(); // Retrieves transmitted parameters
+  const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0);
+  const [playersList, setPlayersList] = useState([]);
+
   useEffect(() => {
+    // console.log('Paramètres reçus dans Play.jsx:', players); //Check received parameters from players.jsx
+
+    if (players) {
+      const parsedPlayers = typeof players === 'string' ? JSON.parse(players) : players;
+      setPlayersList(parsedPlayers);
+    }
+
     // Verrouiller l'orientation en paysage
     ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
 
-    // Déverrouiller l'orientation lorsque le composant est démonté
     return () => {
       ScreenOrientation.unlockAsync();
     };
-  }, []);
+  }, [players]);
+
+  const nextPlayer = () => {
+    setCurrentPlayerIndex((prevIndex) => (prevIndex + 1) % playersList.length);
+  };
+
+  if (playersList.length === 0) {
+    return (
+      <SafeAreaView className="bg-primary h-full">
+        <View className="w-full justify-center items-center h-full px-4">
+          <Text className="text-3xl">Aucun joueur</Text>
+        </View>
+      </SafeAreaView>
+    );
+  }
 
   return (
     <SafeAreaView className="bg-primary h-full">
       <View className="w-full justify-center items-center h-full px-4">
-        <Text>Gameplay</Text>
+        <Text className="text-3xl">{playersList[currentPlayerIndex].name}</Text>
+        <TouchableOpacity onPress={nextPlayer}>
+          <Image source={icons.addIcon} className="w-10 h-10 mt-4" />
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
