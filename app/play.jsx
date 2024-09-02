@@ -10,7 +10,8 @@ const Play = () => {
   const [playersList, setPlayersList] = useState([]);
 
   useEffect(() => {
-    // console.log('Paramètres reçus dans Play.jsx:', players); //Check received parameters from players.jsx
+    //Check received parameters from players.jsx
+    // console.log('Paramètres reçus dans Play.jsx:', players);
 
     if (players) {
       const parsedPlayers = typeof players === 'string' ? JSON.parse(players) : players;
@@ -44,7 +45,7 @@ const Play = () => {
       <View className="w-full justify-center items-center h-full px-4">
         <Text className="text-3xl">{playersList[currentPlayerIndex].name}</Text>
         <TouchableOpacity onPress={nextPlayer}>
-          <Image source={icons.addIcon} className="w-10 h-10 mt-4" />
+          <Image source={icons.arrowNext} className="w-20 h-20 mt-4" />
         </TouchableOpacity>
       </View>
     </SafeAreaView>
